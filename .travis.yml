@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t buddaprem/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run buddaprem/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t buddaprem/multi-client ./client
+  - docker build -t buddaprem/multi-nginx ./nginx
+  - docker build -t buddaprem/multi-server ./server
+  - docker build -t buddaprem/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push buddaprem/multi-client
+  - docker push buddaprem/multi-nginx
+  - docker push buddaprem/multi-server
+  - docker push buddaprem/multi-worker
