@@ -4,7 +4,10 @@ services:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get upgrade docker-ce
+  - sudo apt-get remove docker docker-engine docker.io
+  - sudo apt install docker.io
+  - sudo systemctl start docker
+  - sudo systemctl enable docker
   - docker --version 
   - docker build -t buddaprem/react-test -f ./client/Dockerfile.dev 
 
