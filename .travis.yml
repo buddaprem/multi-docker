@@ -3,13 +3,8 @@ services:
   - docker
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get remove docker docker-engine docker.io
-  - sudo apt install docker.io
-  - sudo systemctl start docker
-  - sudo systemctl enable docker
   - docker --version 
-  - docker build -t buddaprem/react-test -f ./Dockerfile.dev 
+  - docker build -t stephengrider/react-test -f Dockerfile.dev ./client 
 
 script:
   - docker run buddaprem/react-test npm test -- --coverage
