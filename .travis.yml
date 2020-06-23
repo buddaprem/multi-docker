@@ -9,7 +9,7 @@ before_install:
   - sudo systemctl start docker
   - sudo systemctl enable docker
   - docker --version 
-  - docker build -t buddaprem/react-test -f ./client/Dockerfile.dev 
+  - docker build -t buddaprem/react-test -f ./Dockerfile.dev 
 
 script:
   - docker run buddaprem/react-test npm test -- --coverage
