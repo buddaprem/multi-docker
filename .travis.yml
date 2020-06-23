@@ -4,7 +4,7 @@ services:
 
 before_install:
   - docker --version 
-  - docker build -t buddaprem/react-test -f Dockerfile.dev
+  - docker build -t buddaprem/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run buddaprem/react-test npm test -- --coverage
